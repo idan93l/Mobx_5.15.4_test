@@ -1,3 +1,6 @@
-export default class CustomerModel {
-  constructor() {}
+export interface Customer {
+  id: number;
+  name: string;
+  age: number;
+  email: string;
 }

@@ -13,6 +13,9 @@ export default class CurrentCustomerStore {
   customers: Customer[] = [];
 
   constructor() {
-    makeObservable()
+    @observable 
   }
 }
+
+// const store = new CurrentCustomerStore(); 
+// export default CurrentCustomerStore;
