@@ -12,6 +12,10 @@ export default class CurrentCustomerStore {
   @computed get currentCustomer() {
     return this.customer
   }
+
+  @action changeName(joe: string) {
+    this.customer.name = joe;
+  }
 }
 
 export const store = new CurrentCustomerStore(); 
