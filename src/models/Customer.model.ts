@@ -1,10 +1,10 @@
 import { observable, action, computed } from "mobx";
 
 export interface Customer {
-  id: number;
+  // id: number;
   name: string;
   age: number;
-  email: string;
+  // email: string;
 }
 
 // export default class CustomerData {

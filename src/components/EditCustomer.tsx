@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CurrentCustomerStore from "../stores/CurrentCustomer.store";
 import axios from "axios";
 
@@ -21,32 +21,73 @@ export const EditCustomer: React.FC<CustomerProps> = observer(({ store }) => {
     }
   };
 
-  const applyRandomCustomerData = () => {
-    // if (!store.customer.name) {
-      store.changeName(customerName);
-      store.changeAge(customerAge);
-      // }
+  const saveToLocalStorage = () => {
+    localStorage.setItem("currentCustomer", JSON.stringify(store.customer));
+  };
+
+  const storeCustomerData = () => {
+    store.changeName(customerName);
+    store.changeAge(customerAge);
+  };
+
+  const localStorageData = () => {
+    const storage = JSON.parse(localStorage.getItem("currentCustomer") || "{}");
+    !storage.name && !storage.age
+      ? getRandomCustomerData()
+      : setCustomerName(storage.name);
+    setCustomerAge(storage.age);
   };
 
   useEffect(() => {
-    getRandomCustomerData();
+    localStorageData();
   }, []);
 
   useEffect(() => {
-    applyRandomCustomerData();
+    storeCustomerData();
   }, [customerName, customerAge]);
 
   return (
     <>
       <h1>{store.customer.name}</h1>
-      <h1>{store.customer.age}</h1>
+      <h1>{customerAge === 0 ? "" : customerAge}</h1>
       <button
         onClick={() => {
           getRandomCustomerData();
-          applyRandomCustomerData();
+          storeCustomerData();
         }}
       >
         Call API
+      </button>
+      <div>
+        <input
+          value={customerName}
+          onChange={(e) => {
+            setCustomerName(e.target.value);
+          }}
+        />
+        <input
+          value={customerAge === 0 ? "" : customerAge}
+          onChange={(e) => {
+            setCustomerAge(+e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            storeCustomerData();
+            saveToLocalStorage();
+          }}
+        >
+          Save Data
+        </button>
+      </div>
+      <button
+        onClick={() => {
+          localStorage.removeItem("currentCustomer");
+          setCustomerAge(0);
+          setCustomerName("");
+        }}
+      >
+        Clear
       </button>
     </>
   );

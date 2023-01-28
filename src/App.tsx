@@ -1,8 +1,8 @@
-import { CurrentCustomer } from "./components/CurrentCustomer";
 import { store } from "./stores/CurrentCustomer.store";
-import "./App.css";
+import { CurrentCustomer } from "./components/CurrentCustomer";
 import { EditCustomer } from "./components/EditCustomer";
-import DisplayCustomerName from "./components/DisplayCustomerName";
+import { DisplayCustomerName } from "./components/DisplayCustomerName";
+import "./App.css";
 
 const App = () => {
   return (
@@ -13,9 +13,8 @@ const App = () => {
           instructions.
         </p>
         <p>- Albarius Dev Team</p> */}
-        <CurrentCustomer store={store} />
         <EditCustomer store={store}/>
-        <DisplayCustomerName />
+        <DisplayCustomerName store={store}/>
       {/* </header> */}
     </div>
   );
