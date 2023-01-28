@@ -1,21 +1,17 @@
-import CustomerModel from "../models/Customer.model";
-import { observable, action } from "mobx";
-
-interface Customer {
-  id: number;
-  name: string;
-  age: number;
-  email: string;
-}
+import { Customer } from "../models/Customer.model";
+import { observable, action, computed } from "mobx";
 
 export default class CurrentCustomerStore {
-  
-  customers: Customer[] = [];
+  @observable customer: Customer = {
+    id: +Math.random().toFixed(4),
+    name: "Eric",
+    age: 27,
+    email: "eric@gmail.com"
+  };
 
-  constructor() {
-    @observable 
+  @computed get currentCustomer() {
+    return this.customer
   }
 }
 
-// const store = new CurrentCustomerStore(); 
-// export default CurrentCustomerStore;
+export const store = new CurrentCustomerStore(); 

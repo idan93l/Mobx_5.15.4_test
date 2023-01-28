@@ -1,5 +1,8 @@
 import React from "react";
 import "./App.css";
+import { CurrentCustomer } from "./components/CurrentCustomer";
+import { store } from "./stores/CurrentCustomer.store";
+
 
 const App = () => {
   return (
@@ -10,6 +13,7 @@ const App = () => {
           instructions.
         </p>
         <p>- Albarius Dev Team</p>
+      <CurrentCustomer store={store}/>
       </header>
     </div>
   );
