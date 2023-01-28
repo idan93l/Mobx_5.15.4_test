@@ -1,5 +1,4 @@
 import { store } from "./stores/CurrentCustomer.store";
-import { CurrentCustomer } from "./components/CurrentCustomer";
 import { EditCustomer } from "./components/EditCustomer";
 import { DisplayCustomerName } from "./components/DisplayCustomerName";
 import "./App.css";
