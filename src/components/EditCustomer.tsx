@@ -25,9 +25,16 @@ export const EditCustomer: React.FC<CustomerProps> = observer(
     };
 
     const saveToLocalStorage = () => {
+      const storage = JSON.parse(
+        localStorage.getItem("currentCustomer") || "{}"
+      );
       if (customerName && customerAge) {
+        if(storage.name === customerName || storage.age === customerAge) {
+          alert("Already exists!")
+        } else {
         localStorage.setItem("currentCustomer", JSON.stringify(store.customer));
         alert("Saved to local storage!");
+        }
       } else {
         alert("Can't save empty data!");
       }
