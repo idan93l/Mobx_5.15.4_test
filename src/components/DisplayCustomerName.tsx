@@ -1,14 +1,13 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
 import CurrentCustomerStore from "../stores/CurrentCustomer.store";
+import "./DisplayCustomerName.css";
 
 interface CustomerProps {
   store: CurrentCustomerStore;
-  isDarkModeOn: boolean;
 }
 
 export const DisplayCustomerName: React.FC<CustomerProps> = observer(
-  ({ store, isDarkModeOn }) => {
+  ({ store }) => {
     const getCustomerName = () => {
       return (
         store.customerName.charAt(0).toUpperCase() +
@@ -17,9 +16,18 @@ export const DisplayCustomerName: React.FC<CustomerProps> = observer(
     };
 
     return (
-      <>
-        <h1>{getCustomerName()}</h1>
-      </>
+      <div className="customerName">
+        {!store.customer.name ? (
+          <div className="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <h1>{getCustomerName()}</h1>
+        )}
+      </div>
     );
   }
 );

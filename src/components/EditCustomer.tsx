@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
 import CurrentCustomerStore from "../stores/CurrentCustomer.store";
 import axios from "axios";
+import "./EditCustomer.css";
 
 interface CustomerProps {
   store: CurrentCustomerStore;
@@ -24,7 +25,12 @@ export const EditCustomer: React.FC<CustomerProps> = observer(
     };
 
     const saveToLocalStorage = () => {
-      localStorage.setItem("currentCustomer", JSON.stringify(store.customer));
+      if (customerName && customerAge) {
+        localStorage.setItem("currentCustomer", JSON.stringify(store.customer));
+        alert("Saved to local storage!");
+      } else {
+        alert("Can't save empty data!");
+      }
     };
 
     const storeCustomerData = () => {
@@ -52,45 +58,52 @@ export const EditCustomer: React.FC<CustomerProps> = observer(
 
     return (
       <>
-        <button
-          onClick={() => {
-            getRandomCustomerData();
-            storeCustomerData();
-          }}
-        >
-          Call API
-        </button>
-        <div>
+        <div className="inputsContainer">
           <input
             value={customerName}
+            className={isDarkModeOn ? "darkInput" : ""}
             onChange={(e) => {
               setCustomerName(e.target.value);
             }}
           />
           <input
             value={customerAge === 0 ? "" : customerAge}
+            className={`ageInput ${isDarkModeOn ? "darkInput" : ""}`}
             onChange={(e) => {
               setCustomerAge(+e.target.value);
             }}
           />
           <button
+            className={isDarkModeOn ? "darkButton" : ""}
             onClick={() => {
               storeCustomerData();
               saveToLocalStorage();
             }}
           >
-            Save Data
+            Save
           </button>
         </div>
-        <button
-          onClick={() => {
-            localStorage.removeItem("currentCustomer");
-            setCustomerAge(0);
-            setCustomerName("");
-          }}
-        >
-          Clear
-        </button>
+        <div className="buttonsContainer">
+          <button
+            className={isDarkModeOn ? "darkButton" : ""}
+            onClick={() => {
+              getRandomCustomerData();
+              storeCustomerData();
+            }}
+          >
+            Call API
+          </button>
+          <button
+            className={isDarkModeOn ? "darkButton" : ""}
+            onClick={() => {
+              localStorage.removeItem("currentCustomer");
+              setCustomerAge(0);
+              setCustomerName("");
+            }}
+          >
+            Clear
+          </button>
+        </div>
       </>
     );
   }
