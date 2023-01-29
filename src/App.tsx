@@ -2,19 +2,16 @@ import { store } from "./stores/CurrentCustomer.store";
 import { EditCustomer } from "./components/EditCustomer";
 import { DisplayCustomerName } from "./components/DisplayCustomerName";
 import "./App.css";
+import { useState } from "react";
 
 const App = () => {
+  const [isDarkModeOn, setIsDarkModeOn] = useState<boolean>(false);
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
-        {/* <p>
-          See <code>Readme.md</code> in the root directory for coding challenge
-          instructions.
-        </p>
-        <p>- Albarius Dev Team</p> */}
-        <EditCustomer store={store}/>
-        <DisplayCustomerName store={store}/>
-      {/* </header> */}
+      <div className="container">
+        <DisplayCustomerName store={store} isDarkModeOn={isDarkModeOn}/>
+        <EditCustomer store={store} isDarkModeOn={isDarkModeOn}/>
+        </div>
     </div>
   );
 };

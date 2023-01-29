@@ -3,10 +3,8 @@ import { observable, action, computed } from "mobx";
 
 export default class CurrentCustomerStore {
   @observable customer: Customer = {
-    // id: +Math.random().toFixed(4),
     name: "",
     age: 0,
-    // email: ""
   };
 
   @computed get customerName() {

@@ -4,12 +4,17 @@ import CurrentCustomerStore from "../stores/CurrentCustomer.store";
 
 interface CustomerProps {
   store: CurrentCustomerStore;
+  isDarkModeOn: boolean;
 }
 
-export const DisplayCustomerName: React.FC<CustomerProps> = observer(({ store }) => {
-  const getCustomerName = () => { 
-    return store.customerName.charAt(0).toUpperCase() + store.customerName.slice(1).substring(0, 9)
-  }
+export const DisplayCustomerName: React.FC<CustomerProps> = observer(
+  ({ store, isDarkModeOn }) => {
+    const getCustomerName = () => {
+      return (
+        store.customerName.charAt(0).toUpperCase() +
+        store.customerName.slice(1).substring(0, 9)
+      );
+    };
 
     return (
       <>
